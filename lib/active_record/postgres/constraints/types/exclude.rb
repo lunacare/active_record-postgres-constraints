@@ -34,7 +34,7 @@ module ActiveRecord
               using = "using: :#{using}, " if using
 
               where = definition.match(/WHERE \((.*)\)/).try(:[], 1)
-              where = "where: '#{where}'" if where
+              where = "where: \"#{where}\"" if where
 
               exclusions = definition_to_exclusions(definition).join(', ')
               conditions = "#{using}#{exclusions}#{", #{where}" if where}"
