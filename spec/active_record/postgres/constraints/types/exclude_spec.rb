@@ -82,8 +82,8 @@ RSpec.describe ActiveRecord::Postgres::Constraints::Types::Exclude, :constraint 
 
         context 'when a where clause is present' do
           let(:where_clause) { true }
-          let(:constraint) { "#{super()}, where: 'project_id <> 1'" }
-          let(:expected_constraint_string) { "#{super()}, where: '\\(project_id <> 1\\)'" }
+          let(:constraint) { "#{super()}, where: \"project_id <> 1\"" }
+          let(:expected_constraint_string) { "#{super()}, where: \"\\(project_id <> 1\\)\"" }
 
           it_behaves_like 'adds a constraint'
         end
@@ -163,7 +163,7 @@ RSpec.describe ActiveRecord::Postgres::Constraints::Types::Exclude, :constraint 
         context 'when a where clause is present' do
           let(:where_clause) { true }
           let(:constraint) { super().merge(where: 'project_id <> 1') }
-          let(:expected_constraint_string) { "#{super()}, where: '\\(project_id <> 1\\)'" }
+          let(:expected_constraint_string) { "#{super()}, where: \"\\(project_id <> 1\\)\"" }
 
           it_behaves_like 'adds a constraint'
         end
@@ -212,10 +212,10 @@ RSpec.describe ActiveRecord::Postgres::Constraints::Types::Exclude, :constraint 
         let(:where_clause) { true }
         let(:constraint) do
           'using: :gist, \'tsrange("from", "to")\' =>  :overlaps, '\
-          ':project_id => :equals, where: \'project_id <> 1\''
+          ':project_id => :equals, where: "project_id <> 1"'
         end
         let(:expected_constraint_string) do
-          "#{super()}, where: '\\(project_id <> 1\\)'"
+          "#{super()}, where: \"\\(project_id <> 1\\)\""
         end
 
         it_behaves_like 'adds a constraint'
